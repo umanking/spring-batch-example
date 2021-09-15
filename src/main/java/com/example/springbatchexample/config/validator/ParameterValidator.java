@@ -1,4 +1,4 @@
-package com.example.springbatchexample;
+package com.example.springbatchexample.config.validator;
 
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersInvalidException;
@@ -17,6 +17,5 @@ public class ParameterValidator implements JobParametersValidator {
             // csv로 끝나지 않으면 예외
             throw new JobParametersInvalidException("file name parameter does not use the csv file extension");
         }
-
     }
 }

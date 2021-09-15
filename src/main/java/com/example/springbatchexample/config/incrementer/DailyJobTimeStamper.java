@@ -1,11 +1,13 @@
-package com.example.springbatchexample;
+package com.example.springbatchexample.config.incrementer;
 
+import java.time.LocalDate;
 import java.util.Date;
+import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersIncrementer;
 
-public class DailyJobTimestamper implements JobParametersIncrementer {
+public class DailyJobTimeStamper implements JobParametersIncrementer {
 
     @Override
     public JobParameters getNext(JobParameters jobParameters) {

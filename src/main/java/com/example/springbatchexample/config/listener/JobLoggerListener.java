@@ -1,4 +1,4 @@
-package com.example.springbatchexample;
+package com.example.springbatchexample.config.listener;
 
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;

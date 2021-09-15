@@ -1,6 +1,7 @@
 package com.example.springbatchexample.job;
 
-import com.example.springbatchexample.ParameterValidator;
+import com.example.springbatchexample.config.incrementer.DailyJobTimeStamper;
+import com.example.springbatchexample.config.validator.ParameterValidator;
 import java.util.List;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -26,14 +27,15 @@ public class HelloWorldJob {
 
     @Bean
     public Job job() {
-        return this.jobBuilderFactory.get("basicjob")
+        return this.jobBuilderFactory.get("basicJob")
                 .start(step1())
                 .validator(validator())
+                .incrementer(new DailyJobTimeStamper())
                 .build();
     }
 
     @Bean
-    private Step step1() {
+    public Step step1() {
         return this.stepBuilderFactory.get("step1")
                 .tasklet(helloTasklet(null, null))
                 .build();
@@ -43,24 +45,18 @@ public class HelloWorldJob {
         CompositeJobParametersValidator validator = new CompositeJobParametersValidator();
         DefaultJobParametersValidator defaultJobParametersValidator = new DefaultJobParametersValidator(
                 new String[]{"fileName"},
-                new String[]{"name"}
+                new String[]{"name", "currentDate", "run.id"}
         );
-
-        // 2개의 valiadtor로 구성
         validator.setValidators(List.of(new ParameterValidator(), defaultJobParametersValidator));
-
         return validator;
     }
 
+    @Bean
     @StepScope
-    public Tasklet helloTasklet(@Value("#{jobParameters['name']}") String name,
+    public Tasklet helloTasklet(
+            @Value("#{jobParameters['name']}") String name,
             @Value("#{jobParameters['fileName']}") String fileName) {
         return (stepContribution, chunkContext) -> {
-            // 1. job parameter 얻어오기
-/*            StepContext stepContext = chunkContext.getStepContext();
-            Map<String, Object> jobParameters = stepContext.getJobParameters();
-            String name = (String) jobParameters.get("name");
-            System.out.println("jobParameters = " + jobParameters);*/
             System.out.println("name = " + name + ", fileName = " + fileName);
             return RepeatStatus.FINISHED;
         };
