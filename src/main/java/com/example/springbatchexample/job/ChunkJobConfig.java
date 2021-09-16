@@ -1,6 +1,7 @@
 package com.example.springbatchexample.job;
 
 
+import com.example.springbatchexample.component.listener.LoggingStepListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class ChunkJobConfig {
 
     @Autowired
@@ -35,6 +36,7 @@ public class ChunkJobConfig {
                 .<String, String>chunk(100)
                 .reader(itemReader())
                 .writer(itemWriter())
+                .listener(new LoggingStepListener())
                 .build();
 
     }
