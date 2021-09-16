@@ -1,4 +1,4 @@
-package com.example.springbatchexample.service;
+package com.example.springbatchexample;
 
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,6 @@
-package com.example.springbatchexample.config.incrementer;
+package com.example.springbatchexample.component.incrementer;
 
-import java.time.LocalDate;
 import java.util.Date;
-import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersIncrementer;

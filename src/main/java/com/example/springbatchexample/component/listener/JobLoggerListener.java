@@ -1,4 +1,4 @@
-package com.example.springbatchexample.config.listener;
+package com.example.springbatchexample.component.listener;
 
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
@@ -10,14 +10,12 @@ public class JobLoggerListener implements JobExecutionListener {
 
     @Override
     public void beforeJob(JobExecution jobExecution) {
-        System.out.println("before job>>>>>> ");
-
+        System.out.println(">>>> beforeJob");
     }
 
     @Override
     public void afterJob(JobExecution jobExecution) {
-        System.out.println("after job>>>>>>>>>");
-        System.out.println(String.format(END_MESSAGE, jobExecution.getJobInstance().getJobName(), jobExecution.getStatus()));
-
+        // job의 성공/실패와 상관없이 무조건 실행됨
+        System.out.println(">>>> afterJob");
     }
 }
