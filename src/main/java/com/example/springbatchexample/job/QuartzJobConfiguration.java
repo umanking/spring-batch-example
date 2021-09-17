@@ -1,6 +1,5 @@
 package com.example.springbatchexample.job;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -9,30 +8,31 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
+public class QuartzJobConfiguration {
 
-//@Component
-@RequiredArgsConstructor
-public class RestJob {
-
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
+    @Autowired
+    JobBuilderFactory jobBuilderFactory;
+    @Autowired
+    StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Job job() {
-        return jobBuilderFactory.get("job")
+    public Job quartzJob() {
+        return jobBuilderFactory.get("quartzJob")
                 .incrementer(new RunIdIncrementer())
-                .start(step1())
+                .start(quartzStep1())
                 .build();
     }
 
     @Bean
-    private Step step1() {
-        return stepBuilderFactory.get("step1")
+    public Step quartzStep1() {
+        return stepBuilderFactory.get("quartzStep1")
                 .tasklet((contribution, chunkContext) -> {
-                    System.out.println("run step1 ");
+                    System.out.println("run step1 - QuartzJob");
                     return RepeatStatus.FINISHED;
                 }).build();
     }
+
 }

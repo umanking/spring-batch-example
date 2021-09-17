@@ -24,7 +24,7 @@ public class ChunkJobConfig {
     StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Job job() {
+    public Job chunkJob() {
         return jobBuilderFactory.get("chunkJob")
                 .start(chunkStep())
                 .build();
